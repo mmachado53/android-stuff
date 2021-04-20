@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!-- Put here all needed data (could be a ViewModel) -->
+        <variable name="viewModel" type="com.mmachado53.simplemvvmapp.ui.items.ItemsListViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
