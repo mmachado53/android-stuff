@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/items_navigation"
+    app:startDestination="@id/itemsListFragment">
+
+    <fragment
+        tools:layout="@layout/fragment_items_list"
+        android:id="@+id/itemsListFragment"
+        android:name="com.mmachado53.simplemvvmapp.ui.items.ItemsListFragment"
+        android:label="@string/fragment_items_list_title" >
+        <action
+            android:id="@+id/action_itemsListFragment_to_itemFormFragment"
+            app:destination="@id/itemFormFragment" />
+        <action
+            android:id="@+id/action_itemsListFragment_to_deleteItemDialogFragment"
+            app:destination="@id/deleteItemDialogFragment" />
+    </fragment>
+
+    <fragment
+        tools:layout="@layout/fragment_item_form"
+        android:id="@+id/itemFormFragment"
+        android:name="com.mmachado53.simplemvvmapp.ui.items.ItemFormFragment"
+        android:label="@string/fragment_item_form_title" >
+        <action
+            android:id="@+id/action_itemFormFragment_to_deleteItemDialogFragment"
+            app:destination="@id/deleteItemDialogFragment" />
+    </fragment>
+
+    <dialog
+        tools:layout="@layout/dialog_fragment_delete_item"
+        android:id="@+id/deleteItemDialogFragment"
+        android:name="com.mmachado53.simplemvvmapp.ui.items.DeleteItemDialogFragment"
+        android:label="@string/dialog_fragment_delete_item_title" >
+
+        <argument
+            android:name="itemId"
+            app:argType="long" />
+    </dialog>
+
+</navigation>
