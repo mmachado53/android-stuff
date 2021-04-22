@@ -3,10 +3,18 @@
 
     <!-- layouts/fragment_items_list.xml -->
     <string name="fragment_items_list_title">All Items</string>
+    <string name="fragment_items_list_no_items_message">Does not have items yet!!</string>
+    <string name="fragment_items_list_menu_add_item">Add Item</string>
+    <string name="fragment_items_list_generic_connection_error">We have problems connecting to the service :(</string>
 
     <!-- layouts/fragment_item_form.xml -->
     <string name="fragment_item_form_title">Item Detail</string>
 
     <!-- layouts/dialog_fragment_delete_item.xml -->
     <string name="dialog_fragment_delete_item_title">Delete Item</string>
+
+
+    <!-- layouts/row_item_list.xml -->
+    <string name="row_item_list_delete_btn">Delete</string>
+    <string name="row_item_list_not_sync_msg">Item not synced</string>
 </resources>

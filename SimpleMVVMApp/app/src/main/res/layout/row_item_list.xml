@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+        name="item"
+        type="com.mmachado53.simplemvvmapp.data.model.Item" />
+    </data>
+    <androidx.cardview.widget.CardView
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:layout_marginVertical="5dp"
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:padding="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/item_content_text_view"
+                    tools:text="Item Content"
+                    android:text="@{item.content}"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    visible="@{!item.sync}"
+                    android:id="@+id/not_synced_msg_text_view"
+                    android:layout_marginTop="5dp"
+                    android:textColor="?colorError"
+                    android:textSize="12sp"
+                    android:text="@string/row_item_list_not_sync_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete_button"
+                android:layout_gravity="center_vertical"
+                android:text="@string/row_item_list_delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
