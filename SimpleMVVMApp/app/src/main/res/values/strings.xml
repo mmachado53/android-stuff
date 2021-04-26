@@ -9,6 +9,12 @@
 
     <!-- layouts/fragment_item_form.xml -->
     <string name="fragment_item_form_title">Item Detail</string>
+    <string name="fragment_item_form_new_title">New Item</string>
+    <string name="fragment_item_form_edit_title">Edit Item</string>
+    <string name="fragment_item_form_content_field_label">Item Content</string>
+    <string name="fragment_item_form_content_field_help">* This field is required</string>
+    <string name="fragment_item_form_save_button">Save</string>
+    <string name="fragment_item_form_cancel_button">Cancel</string>
 
     <!-- layouts/dialog_fragment_delete_item.xml -->
     <string name="dialog_fragment_delete_item_title">Delete Item</string>
