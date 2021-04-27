@@ -18,6 +18,9 @@
 
     <!-- layouts/dialog_fragment_delete_item.xml -->
     <string name="dialog_fragment_delete_item_title">Delete Item</string>
+    <string name="dialog_fragment_delete_message">Are you sure to delete this item?</string>
+    <string name="dialog_fragment_delete_cancel_button">Cancel</string>
+    <string name="dialog_fragment_delete_delete_button">Delete</string>
 
 
     <!-- layouts/row_item_list.xml -->

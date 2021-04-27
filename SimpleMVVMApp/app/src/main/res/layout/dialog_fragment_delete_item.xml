@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools">
     <data>
-        <!-- Put here all needed data (could be a ViewModel) -->
+        <variable name="viewModel" type="com.mmachado53.simplemvvmapp.ui.items.DeleteItemViewModel"/>
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:padding="5dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_margin="20dp"
+            android:textSize="20sp"
+            android:textColor="?colorOnSurface"
+            android:text="@string/dialog_fragment_delete_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:isScrollContainer="true"
+            android:nestedScrollingEnabled="true"
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginHorizontal="20dp"
+                    tool:text="Item Content"
+                    android:text="@{viewModel.itemToDelete.content}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/dialog_fragment_delete_cancel_button"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.button.MaterialButton
+                android:onClick="@{v -> viewModel.delete()}"
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/dialog_fragment_delete_delete_button"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

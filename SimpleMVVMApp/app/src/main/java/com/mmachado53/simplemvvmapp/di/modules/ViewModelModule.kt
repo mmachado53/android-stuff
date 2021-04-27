@@ -2,6 +2,7 @@ package com.mmachado53.simplemvvmapp.di.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mmachado53.simplemvvmapp.ui.items.DeleteItemViewModel
 import com.mmachado53.simplemvvmapp.ui.items.ItemFormViewModel
 import com.mmachado53.simplemvvmapp.ui.items.ItemsListViewModel
 import dagger.Binds
@@ -22,4 +23,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ItemFormViewModel::class)
     internal abstract fun itemFormViewModel(viewModel: ItemFormViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DeleteItemViewModel::class)
+    internal abstract fun deleteItemViewModel(viewModel: DeleteItemViewModel): ViewModel
 }
