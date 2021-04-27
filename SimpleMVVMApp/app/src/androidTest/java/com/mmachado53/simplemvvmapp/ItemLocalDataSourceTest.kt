@@ -3,6 +3,11 @@ package com.mmachado53.simplemvvmapp
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -35,6 +40,10 @@ class ItemLocalDataSourceTest {
 
     private lateinit var preferences: SharedPreferences
 
+    private val blackPixel: Bitmap = buildPixel(Color.BLACK)
+
+    private val redPixel: Bitmap = buildPixel(Color.RED)
+
     // Be sure to run everything synchronously
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -62,8 +71,8 @@ class ItemLocalDataSourceTest {
     @Test
     fun insertAndSelect() = runBlocking {
         dataBase.clearAllTables() // make sure there is no data
-        val item1 = Item(serverId = null, localId = null, content = "Hello World")
-        val item2 = Item(serverId = null, localId = null, content = "Hello World 2")
+        val item1 = Item(serverId = null, localId = null, content = "Hello World", image = redPixel)
+        val item2 = Item(serverId = null, localId = null, content = "Hello World 2", image = blackPixel)
         itemLocalDataSource.insertItems(item1, item2)
 
         val allItems = itemLocalDataSource.allItemsLiveData().getOrAwaitValue()!!
@@ -74,7 +83,9 @@ class ItemLocalDataSourceTest {
         MatcherAssert.assertThat("There should be no deleted items", deletedItems.isEmpty())
         MatcherAssert.assertThat("Total of items is wrong", allItems.size == 2)
         MatcherAssert.assertThat("Item1 was not saved correctly", savedItem1?.content == "Hello World")
+        MatcherAssert.assertThat("Item1 was not saved correctly", savedItem1?.image?.getPixel(0, 0) == Color.RED)
         MatcherAssert.assertThat("Item2 was not saved correctly", savedItem2?.content == "Hello World 2")
+        MatcherAssert.assertThat("Item1 was not saved correctly", savedItem2?.image?.getPixel(0, 0) == Color.BLACK)
     }
 
     /**
@@ -83,20 +94,20 @@ class ItemLocalDataSourceTest {
     @Test
     fun insertAndUpdate() = runBlocking {
         dataBase.clearAllTables() // make sure there is no data
-        val item1 = Item(serverId = null, localId = null, content = "Hello World")
+        val item1 = Item(serverId = null, localId = null, content = "Hello World", image = redPixel)
         val item2 = Item(serverId = null, localId = null, content = "Hello World 2")
         itemLocalDataSource.insertItems(item1, item2)
         val allItems = itemLocalDataSource.allItemsLiveData().getOrAwaitValue()!!
-        val modifiedItem1 = Item(allItems[0].localId, 1L, "Hello World UPDATED")
-        val modifiedItem2 = Item(allItems[1].localId, 2L, "Hello World 2 UPDATED")
+        val modifiedItem1 = Item(allItems[0].localId, 1L, "Hello World UPDATED", image = null)
+        val modifiedItem2 = Item(allItems[1].localId, 2L, "Hello World 2 UPDATED", image = blackPixel)
 
         itemLocalDataSource.updateItems(modifiedItem1, modifiedItem2)
         val allUpdatedItems = itemLocalDataSource.allItemsLiveData().getOrAwaitValue()!!
 
         MatcherAssert.assertThat("Total of items is wrong", allUpdatedItems.size == 2)
-        val foundItem1 = allUpdatedItems.find { it.content == "Hello World UPDATED" && it.serverId == 1L } != null
+        val foundItem1 = allUpdatedItems.find { it.content == "Hello World UPDATED" && it.serverId == 1L && it.image == null } != null
         MatcherAssert.assertThat("Item1 was not updated correctly", foundItem1)
-        val foundItem2 = allUpdatedItems.find { it.content == "Hello World 2 UPDATED" && it.serverId == 2L } != null
+        val foundItem2 = allUpdatedItems.find { it.content == "Hello World 2 UPDATED" && it.serverId == 2L && it.image?.getPixel(0, 0) == Color.BLACK } != null
         MatcherAssert.assertThat("Item2 was not updated correctly", foundItem2)
     }
 
@@ -208,5 +219,18 @@ class ItemLocalDataSourceTest {
         val lastItemsSynchronizationDate = itemLocalDataSource.getLastItemsSynchronizationDate()
 
         MatcherAssert.assertThat("The saved date does not correct", lastItemsSynchronizationDate?.time == 1618800669080)
+    }
+
+    private fun buildPixel(hexColor: Int): Bitmap {
+        val size = 1
+        val result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(result)
+        val paint = Paint().apply {
+            color = hexColor
+            isAntiAlias = true
+            style = Paint.Style.FILL
+        }
+        canvas.drawRect(Rect(0, 0, size, size), paint)
+        return result
     }
 }
