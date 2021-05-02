@@ -1,5 +1,6 @@
 package com.mmachado53.simplemvvmapp.ui.items
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -21,6 +22,8 @@ class ItemFormViewModel @Inject constructor(private val repository: ItemReposito
 
     val itemContent = MutableLiveData<String>()
 
+    val itemImage = MutableLiveData<Bitmap?>()
+
     val saveButtonIsEnabled: LiveData<Boolean> = Transformations.map(itemContent) {
         formIsValid()
     }
@@ -34,6 +37,7 @@ class ItemFormViewModel @Inject constructor(private val repository: ItemReposito
             repository.getItem(itemId)?.let {
                 itemToEdit = it
                 itemContent.value = it.content
+                itemImage.value = it.image
             }
         }
     }
@@ -44,9 +48,10 @@ class ItemFormViewModel @Inject constructor(private val repository: ItemReposito
                 _showLoading.value = true
                 val itemToSave = itemToEdit?.let {
                     it.content = itemContent.value!!
+                    it.image = itemImage.value
                     return@let it
                 } ?: kotlin.run {
-                    return@run Item(localId = null, serverId = null, itemContent.value!!)
+                    return@run Item(localId = null, serverId = null, itemContent.value!!, itemImage.value)
                 }
                 repository.insertUpdateItem(itemToSave)
                 _showLoading.value = false

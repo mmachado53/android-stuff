@@ -15,6 +15,11 @@
     <string name="fragment_item_form_content_field_help">* This field is required</string>
     <string name="fragment_item_form_save_button">Save</string>
     <string name="fragment_item_form_cancel_button">Cancel</string>
+    <string name="fragment_item_form_attach_image_button">Attach Image</string>
+    <string name="fragment_item_form_remove_image_button">Remove Image</string>
+    <string name="fragment_item_form_attach_image_option_gallery">Attach From Gallery</string>
+    <string name="fragment_item_form_attach_image_option_camera">Attach From Camera</string>
+    <string name="fragment_item_form_attach_image_option_cancel">Cancel</string>
 
     <!-- layouts/dialog_fragment_delete_item.xml -->
     <string name="dialog_fragment_delete_item_title">Delete Item</string>

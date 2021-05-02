@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/content_text_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:helperTextEnabled="true"
             app:helperText="@string/fragment_item_form_content_field_help"
@@ -25,6 +26,37 @@
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/content_text_input_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                visible="@{viewModel.itemImage != null}"
+                bitmap="@{viewModel.itemImage}"
+                android:scaleType="centerCrop"
+                android:maxHeight="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/attach_image_button"
+                visible="@{viewModel.itemImage == null}"
+                android:text="@string/fragment_item_form_attach_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/remove_image_button"
+                visible="@{viewModel.itemImage != null}"
+                android:text="@string/fragment_item_form_remove_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
